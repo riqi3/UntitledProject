@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import 'RegisterScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -137,6 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           // }
 // clearText();
 //                             Get.to(HomeScreen());
+print('login');
                         },
                         child: const Text(
                           "Login",
@@ -151,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        // Get.to(const RegisterScreen());
+                        Get.to(const RegisterScreen());
                       },
                       child: const Text(
                         "Sign Up",
