@@ -1,6 +1,7 @@
+// ignore_for_file: avoid_print, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import 'RegisterScreen.dart';
 
@@ -12,7 +13,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  var formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -20,12 +21,21 @@ class _LoginScreenState extends State<LoginScreen> {
   String _username = "";
   String _email = "";
   String _password = "";
-  // FormType _form = FormType.login;
 
-  _LoginPageState() {
+  @override
+  void initState() {
+    super.initState();
     _nameController.addListener(_usernameListen);
     _emailController.addListener(_emailListen);
     _passwordController.addListener(_passwordListen);
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   void _emailListen() {
@@ -62,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void _loginPressed() async {
+  void _loginPressed() {
     print('The user wants to login with $_email and $_password');
   }
 
@@ -72,10 +82,10 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: const Text('User LoginScreen'),
       ),
-      body: LayoutBuilder(builder: (context, cons) {
+      body: LayoutBuilder(builder: (context, constraints) {
         return ConstrainedBox(
           constraints: BoxConstraints(
-            minHeight: cons.maxHeight,
+            minHeight: constraints.maxHeight,
           ),
           child: SingleChildScrollView(
             child: Column(
@@ -88,30 +98,69 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: _nameController,
                         validator: (value) =>
                             value == '' ? 'Please input username' : null,
-                        decoration: const InputDecoration(
-                          hintText: 'user name',
+                        decoration: InputDecoration(
+                          hintText: 'Username',
+                          labelText: 'Username',
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.blue,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.blue,
+                              width: 2.0,
+                            ),
+                          ),
                         ),
                       ),
+                      SizedBox(height: 10.0),
                       TextFormField(
                         controller: _emailController,
                         validator: (value) =>
                             value == '' ? 'Please input email' : null,
-                        decoration: const InputDecoration(
-                          hintText: 'email',
+                        decoration: InputDecoration(
+                          hintText: 'Email',
+                          labelText: 'Email',
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.blue,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.blue,
+                              width: 2.0,
+                            ),
+                          ),
                         ),
                       ),
+                      SizedBox(height: 10.0),
                       TextFormField(
                         controller: _passwordController,
                         // obscureText: true,
                         validator: (value) =>
                             value == '' ? 'Please input password' : null,
-                        decoration: const InputDecoration(
-                          hintText: 'password',
+                        decoration: InputDecoration(
+                          hintText: 'Password',
+                          labelText: 'Password',
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.blue,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.blue,
+                              width: 2.0,
+                            ),
+                          ),
                         ),
                       ),
+                      SizedBox(height: 10.0),
                       TextButton(
                         onPressed: () async {
-                          // var loginResponse = await authService.userAuth(
+// var loginResponse = await authService.userAuth(
                           //     _nameController.text,
                           //     _emailController.text,
                           //     _passwordController.text);
@@ -141,16 +190,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           // }
 // clearText();
 //                             Get.to(HomeScreen());
-print('login');
+                          print('login');
                         },
                         child: const Text(
-                          "Login",
+                          'Login',
                           style: TextStyle(),
                         ),
                       ),
                     ],
                   ),
                 ),
+                SizedBox(height: 10.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -159,7 +209,7 @@ print('login');
                         Get.to(const RegisterScreen());
                       },
                       child: const Text(
-                        "Sign Up",
+                        'Sign Up',
                         style: TextStyle(),
                       ),
                     ),
