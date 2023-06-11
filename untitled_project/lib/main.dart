@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-import 'LoginScreen.dart';
+import 'Authentication/LoginScreen.dart';
 import 'TestProvider.dart';
 
 void main() async {
